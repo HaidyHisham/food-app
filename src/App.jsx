@@ -19,26 +19,29 @@ import RecipesList from './modules/Recipes/components/RecipesList/RecipesList'
 import UsersList from './modules/Users/components/UsersList/UsersList'
 import FavList from './modules/Favourites/components/FavList/FavList'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import VerifyAccount from './modules/Authentication/components/VerifyAccount/VerifyAccount'
+
 
 
 const router = createBrowserRouter([
   {
-    path: '', 
-    element: <AuthLayout /> , errorElement: <NotFound />,
+    path: "", 
+    element: <AuthLayout/> , errorElement: <NotFound />,
     children: [
       {path: 'login', element: <Login />},
       {index:true , element : <Login/>},
       {path: 'register', element: <Register />},
       {path: 'forgot-password', element: <ForgetPass />},
       {path: 'reset-password', element: <ResetPass />},
-      {path: 'change-password', element: <ChangePass />},
+      {path: 'verify-account', element: <VerifyAccount />},
+    ]},
 
-      {path: '', element: <ProtectedRoute ><MasterLayout  /> </ProtectedRoute>,
+      {path: 'dashboard', element: <MasterLayout  /> ,
         errorElement: <NotFound />,
         children: [
       {path: 'dashboard', element: <Dashboard />},
          {path : 'categories-list'  , element : <AdminProtectedRoute><CategoriesList/></AdminProtectedRoute>},
-      { path : 'categories-data'  , element : <AdminProtectedRoute><CategoryData/></AdminProtectedRoute>},
       { path : 'recipes-list'  , element : <RecipesList />},
       { path : 'recipe/:recipeId'  , element :<AdminProtectedRoute> <RecipeData/></AdminProtectedRoute>},
       { path : 'recipe/new-recipe'  , element : <AdminProtectedRoute><RecipeData/></AdminProtectedRoute>},
@@ -48,11 +51,7 @@ const router = createBrowserRouter([
 
         ]
       }
-    
 
-
-    ]
-  }
 ])
 
 function App() {
