@@ -1,12 +1,14 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 export default function ResetPass() {
   let navigate = useNavigate();
   let {register, formState: {errors}, handleSubmit,watch,trigger}= useForm();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
   const onSubmit= async(data)=>{
     try {
@@ -20,7 +22,6 @@ export default function ResetPass() {
    useEffect(()=>{
     if(watch('confirmPassword')) {
       trigger('confirmPassword')
-
     }
   },[watch('password')])
 
@@ -52,7 +53,10 @@ export default function ResetPass() {
           <input {...register('password',{required:"Password is required", pattern:{
             value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
             message:"Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character"
-          }})} type="password" className="form-control" placeholder="New Password" aria-describedby="emailHelpBlock"></input>
+          }})} type={isPasswordVisible ? "text" : "password"} className="form-control" placeholder="New Password" aria-describedby="emailHelpBlock"></input>
+          <button type="button" className="btn bg-transparent border-0 p-0 text-muted" onClick={() => setIsPasswordVisible(prev => !prev)}>
+            <i className={`fa-solid ${isPasswordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
+          </button>
         </div>
         {errors.password && <span className='text-danger'>{errors.password.message}</span>}
         <div className='auth-input-group mb-2'>
@@ -62,7 +66,10 @@ export default function ResetPass() {
           validate:(value)=>{
             return value === watch('password') || "Passwords do not match";
           }
-        })} type="password" className="form-control" placeholder="Confirm New Password" aria-describedby="emailHelpBlock"></input>
+        })} type={isConfirmPasswordVisible ? "text" : "password"} className="form-control" placeholder="Confirm New Password" aria-describedby="emailHelpBlock"></input>
+          <button type="button" className="btn bg-transparent border-0 p-0 text-muted" onClick={() => setIsConfirmPasswordVisible(prev => !prev)}>
+            <i className={`fa-solid ${isConfirmPasswordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
+          </button>
         </div>
         {errors.confirmPassword && <span className='text-danger'>{errors.confirmPassword.message}</span>}
       

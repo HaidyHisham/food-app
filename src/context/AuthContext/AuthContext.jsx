@@ -31,7 +31,6 @@ export default function AuthContextProvider({ children }) {
             try {
                 const decodedData = jwtDecode(encodedToken);
                 setLoginData(decodedData);
-                // Directly call profile fetch here instead of relying on state check
                 getCurrentUser();
             } catch (error) {
                 console.error("Invalid Token:", error);
@@ -40,7 +39,6 @@ export default function AuthContextProvider({ children }) {
         }
     };
 
-    // Run once when the app loads to restore session
     useEffect(() => {
         if (localStorage.getItem('token')) {
             saveLoginData();

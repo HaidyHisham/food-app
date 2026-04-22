@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 export default function Login() {
   let navigate = useNavigate();
   let {register,formState: {errors}, handleSubmit} = useForm();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const onSubmit=async(data)=>{
     try{
@@ -44,7 +45,10 @@ export default function Login() {
       value:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
       message:"Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character"
     }
-  })} type="password" className="form-control" placeholder="Password" aria-describedby="passwordHelpBlock"></input>
+  })} type={isPasswordVisible ? "text" : "password"} className="form-control" placeholder="Password" aria-describedby="passwordHelpBlock"></input>
+      <button type="button" className="btn bg-transparent border-0 p-0 text-muted" onClick={() => setIsPasswordVisible(prev => !prev)}>
+        <i className={`fa-solid ${isPasswordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
+      </button>
     </div>
     {errors.password && <span className='text-danger'>{errors.password.message}</span>}
     <div className="links d-flex justify-content-between my-2">

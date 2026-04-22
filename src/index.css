@@ -31,6 +31,7 @@ body{
   font-weight: 400;
   line-height: 100%;
   color: #49494999;
+
 }
 .auth-input-group {
   display: flex;
@@ -50,8 +51,11 @@ body{
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 1%;
-
 }
+.auth-input-group input::placeholder {
+  color: var(--text-gray) !important;
+}
+
 .auth-input-group .input-icon{
   display: flex;
   align-items: center;
@@ -83,4 +87,45 @@ body{
   background-color: #3e8e41; 
   transform: translateY(-2px); 
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.auth-logo-size {
+    width: 50%;
+  }
+
+/* for small devices */
+@media (max-width: 575px) {
+  .auth-input-group {
+    padding: 8px 12px;
+  }
+  .auth-input-group input {
+    font-size: 12px;
+  }
+  .auth-input-group .auth-icon {
+    font-size: 0.9rem;
+  }
+
+  .auth-subtitle {
+    font-size: 12px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .auth-input-group input {
+    font-size: 14px;
+  }
+ 
+}
+/* for medium screen */
+@media (min-width: 768px) and (max-width: 991px) {
+  .auth-input-group input {
+    font-size: 14px;
+  }
+ 
+}
+/* for large screen */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .auth-input-group input {
+    font-size: 14px;
+  }
+ 
 }
