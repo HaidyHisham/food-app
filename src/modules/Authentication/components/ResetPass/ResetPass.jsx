@@ -23,6 +23,7 @@ export default function ResetPass() {
     if(watch('confirmPassword')) {
       trigger('confirmPassword')
     }
+
   },[watch('password')])
 
   return (
@@ -67,7 +68,7 @@ export default function ResetPass() {
             return value === watch('password') || "Passwords do not match";
           }
         })} type={isConfirmPasswordVisible ? "text" : "password"} className="form-control" placeholder="Confirm New Password" aria-describedby="emailHelpBlock"></input>
-          <button type="button" className="btn bg-transparent border-0 p-0 text-muted" onClick={() => setIsConfirmPasswordVisible(prev => !prev)}>
+          <button type="button" className="btn bg-transparent border-0 p-0 text-muted cusor-pointer" onClick={() => setIsConfirmPasswordVisible(prev => !prev)}>
             <i className={`fa-solid ${isConfirmPasswordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
           </button>
         </div>

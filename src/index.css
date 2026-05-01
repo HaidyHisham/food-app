@@ -93,6 +93,88 @@ body{
     width: 50%;
   }
 
+.header-bg{
+  background-color: #009247;
+  background-image: url(../src/assets/header-svg.svg);
+  background-size: cover;
+  background-position: center center;
+  border-radius: 15px;
+}
+.sidebar-container .css-1wvake5{
+  border-right: none;
+
+}
+.sidebar-container .ps-sidebar-container{
+  background-color:rgba(31, 38, 62, 1) !important;
+  height: 100vh;
+  border-top-right-radius: 58px !important;
+}
+.sidebar-container .ps-menu-root{
+  margin-top: 50px !important;
+}
+.ps-sidebar-container .ps-menu-button{
+  color: white !important;
+  opacity: 65%;
+  transition: background-color 300ms ease-out !important;
+}
+.sidebar-container .ps-menu-button:hover{
+  background-color:rgba(0, 146, 77, 0.1) !important;
+  border-left:3px solid rgba(0, 146, 71, 1);
+  opacity: 100%;
+}
+.header-name{
+  color: rgba(223, 224, 224, 1);
+}
+
+/* Notification dot */
+.circle-notification{
+  width: 12px; 
+  height: 12px; 
+  background-color: rgba(236, 82, 82, 1);
+  border: 1.2px solid rgba(255, 255, 255, 1);
+  top: -3px;
+  right: -1px
+}
+
+.notify-name{
+font-weight: 500;
+font-size: 14px;
+line-height: 13px;
+letter-spacing: 0.5px;
+color: rgba(31, 56, 76, 1);
+}
+.notify-icon{
+color: rgba(30, 35, 44, 1);
+font-size: 10px;
+
+}
+.search-nav{
+  width: 60%;
+  
+}
+
+.dashboard-card{
+  background-color: rgba(240, 255, 239, 1);
+  border:none;
+}
+.dashboard-card .card-title{
+font-weight: 500;
+font-size: 24px;
+}
+.dashboard-card span{
+font-weight: 600;
+font-size: 24px;
+color: rgba(0, 146, 71, 1);
+}
+.dashboard-card .btn{
+  background-color: rgba(0, 146, 71, 1);
+  transition: all 300ms ease-out;
+}
+.dashboard-card .btn:hover{
+  transform: translateY(-2px);
+}
+
+
 /* for small devices */
 @media (max-width: 575px) {
   .auth-input-group {

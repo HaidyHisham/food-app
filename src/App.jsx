@@ -21,44 +21,49 @@ import FavList from './modules/Favourites/components/FavList/FavList'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import VerifyAccount from './modules/Authentication/components/VerifyAccount/VerifyAccount'
-
+import AuthContextProvider from './context/AuthContext/AuthContext'
 
 
 const router = createBrowserRouter([
   {
-    path: "", 
-    element: <AuthLayout/> , errorElement: <NotFound />,
+    path: "",
+    element: <AuthLayout />, errorElement: <NotFound />,
     children: [
-      {path: 'login', element: <Login />},
-      {index:true , element : <Login/>},
-      {path: 'register', element: <Register />},
-      {path: 'forgot-password', element: <ForgetPass />},
-      {path: 'reset-password', element: <ResetPass />},
-      {path: 'verify-account', element: <VerifyAccount />},
-    ]},
+      { path: 'login', element: <Login /> },
+      { index: true, element: <Login /> },
+      { path: 'register', element: <Register /> },
+      { path: 'forgot-password', element: <ForgetPass /> },
+      { path: 'reset-password', element: <ResetPass /> },
+      { path: 'verify-account', element: <VerifyAccount /> },
+    ]
+  },
 
-      {path: 'dashboard', element: <MasterLayout  /> ,
-        errorElement: <NotFound />,
-        children: [
-      {path: 'dashboard', element: <Dashboard />},
-         {path : 'categories-list'  , element : <AdminProtectedRoute><CategoriesList/></AdminProtectedRoute>},
-      { path : 'recipes-list'  , element : <RecipesList />},
-      { path : 'recipe/:recipeId'  , element :<AdminProtectedRoute> <RecipeData/></AdminProtectedRoute>},
-      { path : 'recipe/new-recipe'  , element : <AdminProtectedRoute><RecipeData/></AdminProtectedRoute>},
-       {path : 'recipes-data'  , element : <RecipeData/>},
-      { path : 'users-list'  , element : <AdminProtectedRoute><UsersList/></AdminProtectedRoute>},
-      { path : 'user-favorites'  , element : <UserProtectedRoute><FavList/></UserProtectedRoute>},
+  {
+    path: '', element: <MasterLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { path: 'dashboard', element: <Dashboard /> },
+      { path: 'categories-list', element: <CategoriesList /> },
+      { path: 'recipes-list', element: <RecipesList /> },
+      { path: 'recipe/:recipeId', element:  <RecipeData /> },
+      { path: 'recipe/new-recipe', element: <RecipeData /> },
+      { path: 'recipes-data', element: <RecipeData /> },
+      { path: 'users-list', element: <UsersList /> },
+      { path: 'change-password', element: <ChangePass/> },
+      { path: 'user-favorites', element: <UserProtectedRoute><FavList /></UserProtectedRoute> },
 
-        ]
-      }
+    ]
+  }
 
 ])
 
 function App() {
   return (
     <>
-      <ToastContainer/>
-      <RouterProvider router={router} />
+      <ToastContainer />
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
     </>
   )
 }

@@ -6,13 +6,16 @@ import { Outlet } from 'react-router-dom'
 
 export default function MasterLayout() {
   return (
-    <div className="d-flex">
-      <Sidebar/>
+    <div className="d-flex mt-2">
+      <div>
+        <Sidebar/>
+      </div>
       <div className='w-100'>
         <Navbar/>
-        <Header/>
-     <Outlet/>
+        <Outlet/>
       </div>
     </div>
+    
   )
 }
+
