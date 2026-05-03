@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 body{
   font-family: "Inter", sans-serif;
+
 }
 :root {
   --text-gray: rgba(131, 145, 161, 1);
@@ -172,6 +175,111 @@ color: rgba(0, 146, 71, 1);
 }
 .dashboard-card .btn:hover{
   transform: translateY(-2px);
+}
+
+/* Categories list */
+.title-categories-list{
+font-family: Poppins;
+font-weight: 500;
+font-style: Medium;
+font-size: 20px;
+color:rgba(31, 38, 62, 1);
+}
+
+.sub-title-categories-list{
+font-family: Poppins;
+font-weight: 400;
+font-style: Regular;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0%;
+color:rgba(50, 60, 71, 1);
+
+
+}
+.icon-color{
+  color: rgba(58, 58, 61, 1);
+}
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: rgba(248, 249, 251, 1) !important;
+  color: inherit !important;
+}
+.dropdown-menu.dropdown-arrow {
+  overflow: visible !important;
+  margin-right: -15px !important;
+}
+.dropdown-menu.dropdown-arrow::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  right: 20px; 
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.05));
+}
+.nodata{
+  color:rgba(73, 73, 73, 1);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+
+}
+.nodata-p{
+ font-weight: 400;
+font-size: 16px;
+text-align: center;
+color:rgba(73, 73, 73, 0.6);
+text-wrap: balance;
+width: 30%;
+
+}
+
+/* Delete Confirmation Modal */
+.delete-modal-close-btn {
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #dc3545;
+  color: #dc3545;
+  padding: 0;
+  line-height: 1;
+  background: transparent;
+  font-size: 14px;
+}
+.delete-modal-img {
+  max-width: 160px;
+}
+.delete-modal-btn {
+  border: 1.5px solid #dc3545;
+  color: #dc3545;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: transparent;
+}
+.delete-modal-desc {
+  font-size: 0.875rem;
+}
+
+.delete-modal-footer {
+  border-top: none;
+  position: relative;
+  
+}
+.delete-modal-footer::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  background-color: rgba(247, 247, 247, 1);
+
 }
 
 
