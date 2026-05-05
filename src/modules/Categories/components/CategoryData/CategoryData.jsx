@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 
 
 export default function CategoryData({ show, onClose, onSubmit, title = "Add Category", categoryData = null }) {
-  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
 
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
 
   useEffect(() => {
     if (show) {

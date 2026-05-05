@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 body{
   font-family: "Inter", sans-serif;
@@ -152,8 +153,12 @@ font-size: 10px;
 
 }
 .search-nav{
-  width: 60%;
-  
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .search-nav {
+    width: 60%;
+  }
 }
 
 .dashboard-card{
@@ -281,10 +286,42 @@ width: 30%;
   background-color: rgba(247, 247, 247, 1);
 
 }
+.change-pass-title{
+font-family: Montserrat;
+font-weight: 600;
+font-style: SemiBold;
+font-size: 25px;
+line-height: 100%;
+letter-spacing: 0%;
+color: rgba(73, 73, 73, 1);
+}
+
+
+.change-pass-modal {
+  max-width: 746px !important;
+}
+
+.change-pass-modal .modal-content {
+  min-height: 576px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  display: flex;
+  justify-content: center;
+}
 
 
 /* for small devices */
 @media (max-width: 575px) {
+  .change-pass-modal .modal-content {
+    min-height: auto;
+    border-radius: 12px;
+  }
+  
+  .change-pass-title {
+    font-size: 20px;
+  }
+
   .auth-input-group {
     padding: 8px 12px;
   }

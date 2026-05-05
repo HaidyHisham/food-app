@@ -95,7 +95,7 @@ export default function CategoriesList() {
           Add New Category
         </button>
       </div>
-      <div>
+      <div className="table-responsive px-2">
         <table className="table table-striped">
           <thead>
             <tr>

@@ -5,7 +5,7 @@ import logo from '../../../../assets/logo-sidebar.svg';
 
 export default function SideBar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
-    const toggleCollapsed = () => {
+  const toggleCollapsed = () => {
     setIsCollapsed(!isCollapsed);
   }
   const navigate = useNavigate();
