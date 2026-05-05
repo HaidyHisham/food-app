@@ -95,8 +95,8 @@ export default function CategoriesList() {
           Add New Category
         </button>
       </div>
-      <div className="table-responsive px-2">
-        <table className="table table-striped">
+      <div className="table-responsive px-4 pb-4">
+        <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -117,7 +117,7 @@ export default function CategoriesList() {
               </tr>
             ) : categoriesList.length > 0 ? (
               categoriesList.map((category, index) => (
-                <tr key={category.id}>
+                <tr key={category.id} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fb' }}>
                   <td>{category.id}</td>
                   <td>{category.name}</td>
                   <td>{category.creationDate}</td>

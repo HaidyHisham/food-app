@@ -72,22 +72,21 @@ export default function RecipesList() {
           <h4 className='title-categories-list'>Recipes Table Details</h4>
           <span className='sub-title-categories-list'>You can check all details</span>
         </div>
-        <button onClick={()=>navigate('/recipes-data')} className='btn btn-success px-3 py-2 fw-bold rounded-2'>
+        <button onClick={()=>navigate('/recipe/new-recipe')} className='btn btn-success px-3 py-2 fw-bold rounded-2'>
           Add New Recipe
         </button>
       </div>
-
-      <div className="table-responsive px-2">
-        <table className="table table-striped align-middle">
+      <div className="table-responsive px-4 pb-4">
+        <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
-            <tr>
-              <th scope="col">Item Name</th>
-              <th scope="col">Image</th>
-              <th scope="col">Price</th>
-              <th scope="col">Description</th>
-              <th scope="col">Tag</th>
-              <th scope="col">Category</th>
-              <th scope="col">Actions</th>
+            <tr >
+              <th scope="col"  >Name</th>
+              <th scope="col" >Image</th>
+              <th scope="col" >Price</th>
+              <th scope="col" >Description</th>
+              <th scope="col" >Discount</th>
+              <th scope="col" >Category</th>
+              <th scope="col"  ></th>
             </tr>
           </thead>
           <tbody>
@@ -100,78 +99,76 @@ export default function RecipesList() {
                 </td>
               </tr>
             ) : recipesList.length > 0 ? (
-              recipesList.map((recipe) => (
-                <tr key={recipe.id}>
-
-                  <td className="fw-semibold">{recipe.name ?? '—'}</td>
-
-                  <td>
+              recipesList.map((recipe, index) => (
+                <tr key={recipe.id} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fb' }}>
+                  <td className="ps-4 ">{recipe.name ?? ' '}</td>
+                  <td className="">
                     {recipe.imagePath
                       ? <img
                           src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`}
                           alt={recipe.name}
                           style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '8px' }}
                         />
-                      : <span className="text-muted small">No image</span>
+                      : <div style={{ width: '48px', height: '48px', backgroundColor: '#e9ecef', borderRadius: '8px' }} className="d-flex justify-content-center align-items-center">
+                        <span className="text-muted" style={{fontSize: '14px'}}>No Img</span></div>
                     }
                   </td>
 
-                  <td>{recipe.price ?? '—'}</td>
+                  <td className="">{recipe.price ?? ' '}</td>
 
-                  <td style={{ maxWidth: '180px' }}>
+                  <td className="" style={{ maxWidth: '180px' }}>
                     <span
                       className="d-inline-block text-truncate"
                       style={{ maxWidth: '180px' }}
                       title={recipe.description}
                     >
-                      {recipe.description ?? '—'}
+                      {recipe.description ?? ' '}
                     </span>
                   </td>
 
-                  <td>{recipe.tag?.name ?? recipe.tagId ?? '—'}</td>
+                  <td className="">{recipe.tag?.name ?? recipe.tagId ?? ' '}</td>
 
-                  <td>{recipe.category?.name ?? '—'}</td>
+                  <td className="">{recipe.category?.name ?? ' '}</td>
 
-                  <td>
+                  <td className=" pe-4 text-end">
                     <div className="dropdown position-relative">
                       <i
-                        className="fa-solid fa-ellipsis icon-color"
+                        className="fa-solid fa-ellipsis fs-5 text-dark"
                         role="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
-                        style={{ cursor: 'pointer', padding: '5px' }}
+                        style={{ cursor: 'pointer' }}
                       ></i>
-                      <ul className="dropdown-menu dropdown-menu-end dropdown-arrow shadow border-0 mt-2 rounded-4 p-2">
+                      <ul className="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-2" style={{ borderRadius: '12px', minWidth: '120px' }}>
                         <li>
-                          <button className="dropdown-item d-flex align-items-center gap-3 py-2">
-                            <i className="fa-regular fa-eye text-success fs-5"></i>
-                            <span className="fw-semibold" style={{ color: 'rgba(31, 38, 62, 1)' }}>View</span>
+                          <button className="dropdown-item d-flex align-items-center gap-3 py-2 rounded-2">
+                            <i className="fa-regular fa-eye text-success fs-6"></i>
+                            <span className="fw-semibold text-dark">View</span>
                           </button>
                         </li>
                         <li>
-                          <button className="dropdown-item d-flex align-items-center gap-3 py-2">
-                            <i className="fa-regular fa-pen-to-square text-success fs-5"></i>
-                            <span className="fw-semibold" style={{ color: 'rgba(31, 38, 62, 1)' }}>Edit</span>
+                          <button className="dropdown-item d-flex align-items-center gap-3 py-2 rounded-2" onClick={() => navigate(`/recipes-data/${recipe.id}`)}>
+                            <i className="fa-regular fa-pen-to-square text-success fs-6"></i>
+                            <span className="fw-semibold text-dark">Edit</span>
                           </button>
                         </li>
                         <li>
                           <button
                             onClick={() => { setSelectedRecipeId(recipe.id); setShowDeleteModal(true); }}
-                            className="dropdown-item d-flex align-items-center gap-3 py-2"
+                            className="dropdown-item d-flex align-items-center gap-3 py-2 rounded-2"
                           >
-                            <i className="fa-regular fa-trash-can text-success fs-5"></i>
-                            <span className="fw-semibold" style={{ color: 'rgba(31, 38, 62, 1)' }}>Delete</span>
+                            <i className="fa-regular fa-trash-can text-success fs-6"></i>
+                            <span className="fw-semibold text-dark">Delete</span>
                           </button>
                         </li>
                       </ul>
                     </div>
                   </td>
-
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={COLS} className="text-center">
+                <td colSpan={COLS} className="text-center py-5">
                   <NoData />
                 </td>
               </tr>
