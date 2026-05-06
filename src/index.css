@@ -91,13 +91,13 @@ body {
   background: linear-gradient(51.22deg, rgba(47, 140, 96, 0.63) -22.39%, rgba(0, 0, 0, 0.6237) 61.76%);
 }
 
-.login-btn {
+.auth-btn {
   background-color: #4AA35A;
   border: none;
   transition: all 300ms ease-out;
 }
 
-.login-btn:hover {
+.auth-btn:hover {
   background-color: #3e8e41;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -115,14 +115,24 @@ body {
   border-radius: 15px;
 }
 
+.sidebar-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
 .sidebar-container .css-1wvake5 {
   border-right: none;
+}
 
+.sidebar-container .ps-sidebar-root {
+  height: 100% !important;
 }
 
 .sidebar-container .ps-sidebar-container {
-  background-color: rgba(31, 38, 62, 1) !important;
-  height: 100vh;
+  background-color: #1f263e !important;
+  height: 100% !important;
+  min-height: 100vh;
   border-top-right-radius: 58px !important;
 }
 
@@ -264,10 +274,26 @@ body {
   font-weight: 400;
   font-size: 16px;
   text-align: center;
-  color: rgba(73, 73, 73, 0.6);
-  text-wrap: balance;
+  /* text-wrap: balance; */
   width: 30%;
+  color: rgba(73, 73, 73, 0.6);
+  font-family: Inter;
+  font-style: Regular;
+  line-height: 100%;
+letter-spacing: 0%;
 
+}
+
+/* not found */
+.notFound{
+    background-image: url(../src/assets/NotFound.svg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    height: 100vh;
+   
+}
+.notFound-text{
+    color: #009247;
 }
 
 /* Delete Confirmation Modal */

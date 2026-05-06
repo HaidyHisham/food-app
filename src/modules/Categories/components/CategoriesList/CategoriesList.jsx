@@ -31,6 +31,7 @@ export default function CategoriesList() {
     try {
       setIsLoading(true);
        await axiosClient.delete(`/Category/${selectedCategoryId}`)
+       // soft delete method 
       setcategoriesList(categoriesList.filter(item => item.id !== selectedCategoryId));
       toast.success('Category deleted successfully!');
       setShowDeleteModal(false);
@@ -41,6 +42,11 @@ export default function CategoriesList() {
       toast.error('Failed to delete category');
     }
   }
+
+  /* This is a dual-purpose function. If selectedCategory is full, it calls PUT (Update). 
+   If selectedCategory is null, it calls POST (Add). 
+    After saving, it calls getList() to refresh the table with the new data.
+*/
 
   const saveCategory = async (data) => {
     try {

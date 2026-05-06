@@ -39,6 +39,7 @@ export default function Login() {
   <input {...register('email',{
     required:"Email is required",
     pattern:/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+  
   })} 
   type="email" className="form-control" placeholder="Enter your E-mail" aria-describedby="emailHelpBlock"></input>
     </div>
@@ -65,7 +66,7 @@ export default function Login() {
       Forgot Password?
      </Link>
     </div>
-    <button className='btn login-btn w-100 my-4 text-white fw-bold '>Login</button>
+    <button type='submit' className='btn auth-btn w-100 my-4 text-white fw-bold '>Login</button>
    </form>
 
    </div>

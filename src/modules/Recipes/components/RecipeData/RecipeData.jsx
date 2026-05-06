@@ -7,7 +7,6 @@ import { getAllTags } from '../../../../api/modules/tags';
 import { getCategories } from '../../../../api/modules/categories';
 
 export default function RecipeData() {
-  // Add a state for preview
   const [imgPreview, setImgPreview] = useState(null);
   const { recipeId } = useParams();
   const isEditMode = !!recipeId;
@@ -32,6 +31,7 @@ export default function RecipeData() {
     };
     fetchDropdownData();
   }, []);
+
 
   useEffect(() => {
     if (isEditMode) {
@@ -68,7 +68,6 @@ export default function RecipeData() {
       if (data.recipeImage && data.recipeImage.length > 0) {
         formData.append('recipeImage', data.recipeImage[0]);
       }
-
       if (isEditMode) {
         await updateRecipe(formData, recipeId);
         toast.success('Recipe updated successfully!');
@@ -83,6 +82,12 @@ export default function RecipeData() {
       console.log(error);
     }
   };
+  const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setImgPreview(URL.createObjectURL(file)); 
+  }
+};
 
   return (
     <>
@@ -122,10 +127,12 @@ export default function RecipeData() {
             {errors.tagId && <p className='text-danger'>Tag is required</p>}
           </div>
 
-          <div className='input-group mb-3'>
-            <input {...register('price', { required: true })} type='text' className='form-control border-0 bg-light py-2 px-3 rounded-start-2' placeholder='Price' />
-            <span className='input-group-text border-0 bg-light fw-medium rounded-end-2'>EGP</span>
-            {errors.price && <p className='text-danger'>Price is required</p>}
+          <div className='mb-3'>
+            <div className='input-group'>
+              <input {...register('price', { required: true })} type='text' className='form-control border-0 bg-light py-2 px-3 rounded-start-2' placeholder='Price' />
+              <span className='input-group-text border-0 bg-light fw-medium rounded-end-2'>EGP</span>
+            </div>
+            {errors.price && <p className='text-danger mt-1'>Price is required</p>}
           </div>
 
           <div className='mb-3'>
@@ -144,8 +151,8 @@ export default function RecipeData() {
           </div>
 
           <div
-            className='mb-4 p-4 text-center rounded-2 mt-4'
-            style={{ border: '2px dashed #28a745', backgroundColor: '#f8fff9', cursor: 'pointer', overflow: 'hidden' }}
+            className='mb-2 p-4 text-center rounded-2 mt-4'
+            style={{ border: errors.recipeImage ? '2px dashed #dc3545' : '2px dashed #28a745', backgroundColor: '#f8fff9', cursor: 'pointer' }}
             onClick={() => document.getElementById('fileInput').click()}
           >
             {imgPreview ? (
@@ -158,19 +165,17 @@ export default function RecipeData() {
               type='file'
               id='fileInput'
               className='d-none'
-              {...register('recipeImage', { 
-                required: !isEditMode,
-                onChange: (e) => {
-                  if(e.target.files && e.target.files[0]) {
-                    setImgPreview(URL.createObjectURL(e.target.files[0]));
-                  }
-                }
-              })} 
+              {...register('recipeImage', { required: isEditMode ? 'Recipe Image is required to update' : false })}
+              onChange={(e) => {
+                register('recipeImage').onChange(e);
+                handleFileChange(e);
+              }}
             />
             <p className='mb-0 fw-medium text-dark'>
-              {isEditMode ? "Change Recipe Image (Optional)" : "drag&drop Choose a Recipe Image to Upload"}
+              {isEditMode ? "Change Recipe Image (Required)" : "Choose a Recipe Image (Optional)"}
             </p>
           </div>
+          {errors.recipeImage && <p className='text-danger text-center fw-bold'>{errors.recipeImage.message}</p>}
 
           <div className='d-flex justify-content-end gap-3 pt-4 border-top mt-4'>
             <button type='button' onClick={() => navigate('/recipes-list')} className='btn btn-outline-success px-4 py-2 fw-semibold'>Cancel</button>

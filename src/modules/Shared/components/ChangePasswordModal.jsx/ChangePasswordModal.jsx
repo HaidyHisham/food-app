@@ -16,10 +16,9 @@ export default function ChangePasswordModal() {
 
   const onSubmit = async (data) => {
     try {
-    
       await changePassword(data);
       toast.success("Password changed successfully");
-    //   navigate('/dashboard');
+      navigate('/dashboard');  
     } catch (error) {
       console.log(error.response.data);
       toast.error(error?.response?.data.message || "Something went wrong");
@@ -99,7 +98,7 @@ export default function ChangePasswordModal() {
           </div>
           {errors.confirmNewPassword && <span className='text-danger d-block mb-2 small'>{errors.confirmNewPassword.message}</span>}
 
-          <button className='btn login-btn w-100 my-4 text-white fw-bold'>Change Password</button>
+          <button type='submit' className='btn auth-btn w-100 my-4 text-white fw-bold'>Change Password</button>
         </form>
       </Modal.Body>
     </Modal>

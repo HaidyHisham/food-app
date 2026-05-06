@@ -53,7 +53,6 @@ export default function RecipesList() {
 
   return (
     <>
-
       <Header
         title="Recipes"
         titleSpan="item"
@@ -147,7 +146,7 @@ export default function RecipesList() {
                           </button>
                         </li>
                         <li>
-                          <button className="dropdown-item d-flex align-items-center gap-3 py-2 rounded-2" onClick={() => navigate(`/recipes-data/${recipe.id}`)}>
+                          <button className="dropdown-item d-flex align-items-center gap-3 py-2 rounded-2" onClick={() => navigate(`/recipe/${recipe.id}`)}>
                             <i className="fa-regular fa-pen-to-square text-success fs-6"></i>
                             <span className="fw-semibold text-dark">Edit</span>
                           </button>

@@ -8,5 +8,9 @@ export const getUserById = (id) => {
 }
 
 export const createUser=(userData)=>{
-  return axiosClient.post("/Users",userData);   
+  return axiosClient.post("/Users/register",userData);   
+}
+
+export const updateUser=(id,userData)=>{
+  return axiosClient.put(`/Users/${id}`,userData);   
 }
