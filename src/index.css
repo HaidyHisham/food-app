@@ -50,18 +50,40 @@ body {
   padding: 10px 12px;
   border-radius: 8px;
   gap: 5px;
-
+  transition: all 0.3s ease-in-out;
+  border: 1px solid transparent;
 }
 
-.auth-input-group input {
-  border: none;
-  outline: none;
+.auth-input-group input,
+.auth-input-group input:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   background: transparent;
   flex: 1;
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 1%;
+}
+
+.auth-input-group:focus-within {
+  border: 1px solid #4AA35A !important;
+  background-color: white !important;
+  box-shadow: 0 0 0 0.25rem rgba(74, 163, 90, 0.15) !important;
+}
+
+.auth-input-group:focus-within .input-icon i {
+  color: #4AA35A !important;
+}
+
+.auth-input-group:focus-within .input-divider {
+  background-color: #4AA35A !important;
+}
+
+.form-control:focus {
+  border-color: #4AA35A !important;
+  box-shadow: 0 0 0 0.2rem rgba(74, 163, 90, 0.25) !important;
 }
 
 .auth-input-group input::placeholder {
