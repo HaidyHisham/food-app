@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import { Modal } from 'react-bootstrap';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import {addFav} from '../../../../api/modules/userRecipe'
+import Filters from '../../../Shared/components/Filters/Filters'
+import CustomPagination from '../../../Shared/components/CustomPagination/CustomPagination'
 const COLS = 7; 
 
 export default function RecipesList() {
@@ -16,6 +18,16 @@ export default function RecipesList() {
   const [isLoading, setIsLoading] = useState(true);
   const [recipesList, setRecipesList] = useState([]);
   const [favList, setFavList] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [categories, setCategories] = useState([]);
+  
+
+  const [name, setName] = useState('');
+  const [tagId, setTagId] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -23,17 +35,42 @@ export default function RecipesList() {
   const navigate = useNavigate();
   const { loginData } = useContext(AuthContext);
 
-  const getList = async () => {
+  const getList = async (page = 1, searchName = name, tag = tagId, cat = categoryId) => {
     try {
       setIsLoading(true);
       const response = await axiosClient.get('/Recipe/', {
-        params: { pageNumber: 1, pageSize: 10 }
+        params: { 
+          pageNumber: page, 
+          pageSize: 10,
+          name: searchName,
+          tagId: tag,
+          categoryId: cat
+        }
       });
       setRecipesList(response.data.data || []);
+      setTotalPages(response.data.totalNumberOfPages || 1);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       toast.error(error?.response?.data?.message || 'Failed to load recipes');
+      console.log(error);
+    }
+  }
+
+  const getTags = async () => {
+    try {
+      const response = await axiosClient.get('/Tag/');
+      setTags(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getCategories = async () => {
+    try {
+      const response = await axiosClient.get('/Category/');
+      setCategories(response.data.data || []);
+    } catch (error) {
       console.log(error);
     }
   }
@@ -77,7 +114,12 @@ export default function RecipesList() {
   }
 
   useEffect(() => {
-    getList();
+    getList(currentPage, name, tagId, categoryId);
+  }, [currentPage, name, tagId, categoryId])
+
+  useEffect(() => {
+    getTags();
+    getCategories();
     if (loginData?.userGroup === 'SystemUser') {
       getFavorites();
     }
@@ -109,6 +151,14 @@ export default function RecipesList() {
         </button>
         )}
       </div>
+
+      <Filters 
+        onSearchChange={(val) => { setName(val); setCurrentPage(1); }}
+        onTagChange={(val) => { setTagId(val); setCurrentPage(1); }}
+        onCategoryChange={(val) => { setCategoryId(val); setCurrentPage(1); }}
+        tags={tags}
+        categories={categories}
+      />
       <div className="table-responsive px-4 pb-4">
         <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
@@ -117,7 +167,7 @@ export default function RecipesList() {
               <th scope="col" >Image</th>
               <th scope="col" >Price</th>
               <th scope="col" >Description</th>
-              <th scope="col" >Discount</th>
+              <th scope="col" >Tag</th>
               <th scope="col" >Category</th>
               <th scope="col" >Actions</th>
             </tr>
@@ -224,6 +274,12 @@ export default function RecipesList() {
           </tbody>
         </table>
       </div>
+
+      <CustomPagination 
+        totalNumberOfPages={totalPages} 
+        currentPage={currentPage} 
+        onPageChange={(page) => setCurrentPage(page)} 
+      />
 
       <Modal show={showViewModal} onHide={() => setShowViewModal(false)} centered size="lg">
         <Modal.Header closeButton className="border-0 pb-0">

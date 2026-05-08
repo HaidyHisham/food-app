@@ -6,20 +6,35 @@ import NoData from '../../../Shared/components/NoData/NoData';
 import { toast } from 'react-toastify';
 import DeleteConfirmation from '../../../Shared/components/DeleteConfimation/DeleteConfirmation';
 import CategoryData from '../CategoryData/CategoryData';
+import Filters from '../../../Shared/components/Filters/Filters'
+import CustomPagination from '../../../Shared/components/CustomPagination/CustomPagination'
 
 export default function CategoriesList() {
   const [categoriesList, setcategoriesList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Filter and Pagination States
+  const [name, setName] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null); // null = Add, object = Edit
 
-  const getList = async () => {
+  const getList = async (page = 1, searchName = name) => {
     try {
       setIsLoading(true);
-      const response = await axiosClient.get('/Category');
+      const response = await axiosClient.get('/Category', {
+        params: {
+          pageNumber: page,
+          pageSize: 10,
+          name: searchName
+        }
+      });
       setcategoriesList(response.data.data || []);
+      setTotalPages(response.data.totalNumberOfPages || 1);
       setIsLoading(false);
 
     } catch (error) {
@@ -68,8 +83,8 @@ export default function CategoriesList() {
   }
   
   useEffect(() => {
-    getList();
-  }, [])
+    getList(currentPage, name);
+  }, [currentPage, name])
 
 
 
@@ -101,6 +116,10 @@ export default function CategoriesList() {
           Add New Category
         </button>
       </div>
+
+      <Filters 
+        onSearchChange={(val) => { setName(val); setCurrentPage(1); }}
+      />
       <div className="table-responsive px-4 pb-4">
         <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
@@ -174,6 +193,12 @@ export default function CategoriesList() {
           </tbody>
         </table>
       </div>
+
+      <CustomPagination 
+        totalNumberOfPages={totalPages} 
+        currentPage={currentPage} 
+        onPageChange={(page) => setCurrentPage(page)} 
+      />
     </>
   )
 }

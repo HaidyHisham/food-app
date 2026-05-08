@@ -420,7 +420,23 @@ font-size: 22px;
 letter-spacing: 0%;
 
 }
+.custom-pagination .page-link {
+  color: rgba(0, 146, 71, 1) !important;
+  border-color: transparent !important;
+}
+.custom-pagination .page-link:hover {
+  color: rgba(0, 146, 71, 1) !important;
+  border-color: transparent !important;
+}
+.custom-pagination .page-link:active {
+  color: rgba(0, 146, 71, 1) !important;
+  border-color: transparent !important;
+}
 
+.custom-pagination .page-item.active .page-link {
+  background-color: gray !important;
+  border-color: transparent !important;
+}
 /* for small devices */
 @media (max-width: 575px) {
   .change-pass-modal .modal-content {
