@@ -1,5 +1,5 @@
 import React from 'react'
-import noData from '../../../../assets/NoData.svg'
+import noData from '../../../../assets/noData.svg'
 export default function NoData() {
   return (
   <div className=' d-flex justify-content-center align-items-center flex-column py-5 text-center'>

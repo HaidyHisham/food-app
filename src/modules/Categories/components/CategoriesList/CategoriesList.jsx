@@ -13,7 +13,7 @@ export default function CategoriesList() {
   const [categoriesList, setcategoriesList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Filter and Pagination States
+
   const [name, setName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -58,10 +58,6 @@ export default function CategoriesList() {
     }
   }
 
-  /* This is a dual-purpose function. If selectedCategory is full, it calls PUT (Update). 
-   If selectedCategory is null, it calls POST (Add). 
-    After saving, it calls getList() to refresh the table with the new data.
-*/
 
   const saveCategory = async (data) => {
     try {
