@@ -4,15 +4,18 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { registerApi } from '../../../../api/modules/auth';
+import ButtonLoader from '../../../Shared/components/ButtonLoader/ButtonLoader';
 
 
 export default function Register() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   let{register,formState: {errors}, handleSubmit,watch, trigger}= useForm();
   const onSubmit= async(data)=>{
     try {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append('userName', data.userName);
       formData.append('email', data.email);
@@ -28,6 +31,8 @@ export default function Register() {
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message || 'Registration failed');
+    } finally {
+      setIsLoading(false);
     }
   }
   useEffect(()=>{
@@ -136,7 +141,9 @@ export default function Register() {
         </div>
         <div className="row justify-content-center mt-3">
           <div className="col-12 col-md-9">
-            <button type='submit' className='btn auth-btn w-100 text-white fw-bold'>Register</button>
+            <button disabled={isLoading} type='submit' className='btn auth-btn w-100 text-white fw-bold'>
+              {isLoading ? <ButtonLoader /> : 'Register'}
+            </button>
           </div>
         </div>
       </form>

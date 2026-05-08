@@ -16,3 +16,9 @@ export const login = (body) => {
 export const changePassword = (body) => {
     return axiosClient.put(`/Users/ChangePassword`, body);   
 }
+export const requestReset = (body) => {
+    return axiosClient.post(`/Users/Reset/Request`, body);   
+}
+export const reset = (body) => {
+    return axiosClient.put(`/Users/Reset`, body);   
+}

@@ -11,6 +11,7 @@ import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import {addFav} from '../../../../api/modules/userRecipe'
 import Filters from '../../../Shared/components/Filters/Filters'
 import CustomPagination from '../../../Shared/components/CustomPagination/CustomPagination'
+import Loading from '../../../Shared/components/Loading/Loading'
 const COLS = 7; 
 
 export default function RecipesList() {
@@ -163,22 +164,20 @@ export default function RecipesList() {
         <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
             <tr className='text-center'>
-              <th scope="col"  >Name</th>
-              <th scope="col" >Image</th>
-              <th scope="col" >Price</th>
-              <th scope="col" >Description</th>
-              <th scope="col" >Tag</th>
-              <th scope="col" >Category</th>
-              <th scope="col" >Actions</th>
+              <th scope="col" style={{ minWidth: '150px' }}>Name</th>
+              <th scope="col" style={{ minWidth: '80px' }}>Image</th>
+              <th scope="col" style={{ minWidth: '80px' }}>Price</th>
+              <th scope="col" style={{ minWidth: '200px' }}>Description</th>
+              <th scope="col" style={{ minWidth: '100px' }}>Tag</th>
+              <th scope="col" style={{ minWidth: '120px' }}>Category</th>
+              <th scope="col" style={{ minWidth: '100px' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={COLS} className="text-center py-5">
-                  <div className="spinner-border text-success" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                <td colSpan={COLS} className="text-center">
+                  <Loading />
                 </td>
               </tr>
             ) : recipesList.length > 0 ? (
@@ -199,14 +198,8 @@ export default function RecipesList() {
 
                   <td className="text-center">{recipe.price ?? ' '}</td>
 
-                  <td className="text-center" style={{ maxWidth: '180px' }}>
-                    <span
-                      className="d-inline-block text-truncate"
-                      style={{ maxWidth: '180px' }}
-                      title={recipe.description}
-                    >
-                      {recipe.description ?? ' '}
-                    </span>
+                  <td className="text-center" style={{ maxWidth: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {recipe.description ?? ' '}
                   </td>
 
                   <td className="text-center">{recipe.tag?.name ?? recipe.tagId ?? ' '}</td>

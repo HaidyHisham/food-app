@@ -5,6 +5,7 @@ import { changePassword } from '../../../../api/modules/auth';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ButtonLoader from '../ButtonLoader/ButtonLoader';
 
 export default function ChangePasswordModal() {
   const navigate = useNavigate();
@@ -13,15 +14,19 @@ export default function ChangePasswordModal() {
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
     try {
+      setIsLoading(true);
       await changePassword(data);
       toast.success("Password changed successfully");
       navigate('/dashboard');  
     } catch (error) {
       console.log(error.response.data);
       toast.error(error?.response?.data.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   }
   useEffect(() => {
@@ -98,7 +103,9 @@ export default function ChangePasswordModal() {
           </div>
           {errors.confirmNewPassword && <span className='text-danger d-block mb-2 small'>{errors.confirmNewPassword.message}</span>}
 
-          <button type='submit' className='btn auth-btn w-100 my-4 text-white fw-bold'>Change Password</button>
+          <button disabled={isLoading} type='submit' className='btn auth-btn w-100 my-4 text-white fw-bold'>
+            {isLoading ? <ButtonLoader /> : 'Change Password'}
+          </button>
         </form>
       </Modal.Body>
     </Modal>

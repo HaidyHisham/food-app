@@ -3,13 +3,17 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import { verify } from '../../../../api/modules/auth';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import ButtonLoader from '../../../Shared/components/ButtonLoader/ButtonLoader';
 
 export default function VerifyAccount() {
   const navigate = useNavigate();
   let {register, formState: {errors}, handleSubmit}= useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit= async(data)=>{
     try {
+      setIsLoading(true);
       let response = await verify(data);
       console.log(response);
       toast.success(response.data?.message || 'Account verified successfully');
@@ -17,6 +21,8 @@ export default function VerifyAccount() {
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message || 'Verification failed');
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -43,7 +49,9 @@ export default function VerifyAccount() {
         {errors.code && <span className='text-danger'>{errors.code.message}</span>}
         <div className="row justify-content-center mt-3">
           <div className="col-12 col-md-9">
-            <button type='submit' className='btn auth-btn w-100 text-white fw-bold '>send</button>
+            <button disabled={isLoading} type='submit' className='btn auth-btn w-100 text-white fw-bold '>
+              {isLoading ? <ButtonLoader /> : 'send'}
+            </button>
           </div>
         </div>
         

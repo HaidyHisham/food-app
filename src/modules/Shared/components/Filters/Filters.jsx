@@ -8,8 +8,9 @@ export default function Filters({
   categories = [] 
 }) {
   return (
-    <div className="row g-3 px-4 my-3">
-      <div className="col-md-6 col-lg-8">
+    <div className="px-4">
+      <div className="row g-3 my-3">
+        <div className="col-12 col-md-6 col-lg-8">
         <div className="input-group bg-white border rounded-3 shadow-sm px-3">
           <span className="input-group-text bg-transparent border-0 pe-0">
             <i className="fa-solid fa-magnifying-glass text-muted"></i>
@@ -24,7 +25,7 @@ export default function Filters({
       </div>
 
       {onTagChange && (
-        <div className="col-md-3 col-lg-2">
+        <div className="col-6 col-md-3 col-lg-2">
           <select 
             className="form-select border-0 shadow-sm rounded-3 py-2 text-muted"
             onChange={(e) => onTagChange(e.target.value)}
@@ -38,7 +39,7 @@ export default function Filters({
       )}
 
       {onCategoryChange && (
-        <div className="col-md-3 col-lg-2">
+        <div className="col-6 col-md-3 col-lg-2">
           <select 
             className="form-select border-0 shadow-sm rounded-3 py-2 text-muted"
             onChange={(e) => onCategoryChange(e.target.value)}
@@ -50,6 +51,7 @@ export default function Filters({
           </select>
         </div>
       )}
+      </div>
     </div>
   )
 }

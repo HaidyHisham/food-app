@@ -8,6 +8,7 @@ import DeleteConfirmation from '../../../Shared/components/DeleteConfimation/Del
 import CategoryData from '../CategoryData/CategoryData';
 import Filters from '../../../Shared/components/Filters/Filters'
 import CustomPagination from '../../../Shared/components/CustomPagination/CustomPagination'
+import Loading from '../../../Shared/components/Loading/Loading'
 
 export default function CategoriesList() {
   const [categoriesList, setcategoriesList] = useState([]);
@@ -119,7 +120,7 @@ export default function CategoriesList() {
       <div className="table-responsive px-4 pb-4">
         <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
-            <tr>
+            <tr className='text-center'>
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Created Date</th>
@@ -130,19 +131,17 @@ export default function CategoriesList() {
 
             {isLoading ? (
               <tr>
-                <td colSpan="4" className="text-center py-5">
-                  <div className="spinner-border text-success" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                <td colSpan="4" className="text-center">
+                  <Loading />
                 </td>
               </tr>
             ) : categoriesList.length > 0 ? (
               categoriesList.map((category, index) => (
                 <tr key={category.id} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fb' }}>
-                  <td>{category.id}</td>
-                  <td>{category.name}</td>
-                  <td>{category.creationDate}</td>
-                  <td>
+                  <td className='text-center'>{category.id}</td>
+                  <td className='text-center'>{category.name}</td>
+                  <td className='text-center'>{category.creationDate}</td>
+                  <td className='text-center'>
                     <div className="dropdown position-relative">
                       
                       <i

@@ -1,19 +1,24 @@
 import React from 'react'
-import axios from 'axios';
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
+import ButtonLoader from '../../../Shared/components/ButtonLoader/ButtonLoader';
+import { requestReset } from '../../../../api/modules/auth';
 export default function ForgetPass() {
   let navigate = useNavigate();
   let { register, formState: { errors }, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Reset/Request", data);
+      setIsLoading(true);
+      const response = await requestReset(data);
       toast.success('Email sent successfully');
       navigate('/reset-password');
     } catch (error) {
       toast.error(error?.response?.data.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -33,7 +38,9 @@ export default function ForgetPass() {
             type="email" className="form-control" placeholder="Enter your E-mail" aria-describedby="emailHelpBlock"></input>
         </div>
         {errors.email && <span className='text-danger'>{errors.email.message}</span>}
- <button className='btn login-btn w-100 my-4 text-white fw-bold'>Submit</button>
+ <button type='submit' disabled={isLoading} className='btn auth-btn w-100 my-4 text-white fw-bold'>
+   {isLoading ? <ButtonLoader /> : 'Submit'}
+ </button>
       </form>
      
 

@@ -5,6 +5,7 @@ import NoData from '../../../Shared/components/NoData/NoData';
 import DeleteConfirmation from '../../../Shared/components/DeleteConfimation/DeleteConfirmation';
 import axiosClient from '../../../../api/modules/axiosClient';
 import { toast } from 'react-toastify';
+import Loading from '../../../Shared/components/Loading/Loading'
 
 export default function UsersList() {
   const [usersList, setUsersList] = useState([]);
@@ -68,39 +69,36 @@ export default function UsersList() {
 
       <div className="table-responsive px-4 pb-4">
         <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
-          <thead style={{ backgroundColor: '#E2E5EB' }}>
-            <tr>
-              <th scope="col"  style={{ borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}>#</th>
-              <th scope="col" >Name</th>
-              <th scope="col" >Email</th>
-              <th scope="col" >Group</th>
-              <th scope="col" style={{ borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>Actions</th>
+          <thead>
+            <tr className='text-center'>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Group</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan="5" className="text-center py-5">
-                  <div className="spinner-border text-success" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                <td colSpan="5" className="text-center">
+                  <Loading />
                 </td>
               </tr>
             ) : usersList.length > 0 ? (
               usersList.map((user, index) => (
                 <tr key={user.id} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fb' }}>
-                  <td className='ps-4 text-muted'>{user.id}</td>
-                  {/* Using userName as defined in Swagger */}
-                  <td className='text-muted'>{user.userName}</td>
-                  <td className='text-muted'>{user.email}</td>
-                  <td className='text-muted'>
+                  <td className='text-center text-muted'>{user.id}</td>
+                  <td className='text-center text-muted'>{user.userName}</td>
+                  <td className='text-center text-muted'>{user.email}</td>
+                  <td className='text-center text-muted'>
                     {user.group?.id === 1 ? 'Admin' : 'System User'}
                   </td>
-                  <td className='pe-4'>
+                  <td className='text-center'>
                     <div className="dropdown position-relative">
                       <i
-                        className="fa-solid fa-ellipsis fs-5"
-                        type="button"
+                        className="fa-solid fa-ellipsis fs-5 text-dark"
+                        role="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                         style={{ cursor: 'pointer' }}

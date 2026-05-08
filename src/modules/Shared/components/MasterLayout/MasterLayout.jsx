@@ -10,7 +10,7 @@ export default function MasterLayout() {
       <div>
         <Sidebar />
       </div>
-      <div className='w-100'>
+      <div className='flex-grow-1 overflow-hidden'>
         <Navbar />
         <Outlet />
       </div>

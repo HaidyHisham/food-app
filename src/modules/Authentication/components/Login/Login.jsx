@@ -1,18 +1,21 @@
-import axios from 'axios';
+import axiosClient from '../../../../api/modules/axiosClient';
 import React, { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
+import ButtonLoader from '../../../Shared/components/ButtonLoader/ButtonLoader';
 export default function Login() {
   let navigate = useNavigate();
   let {register,formState: {errors}, handleSubmit} = useForm();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { saveLoginData } = useContext(AuthContext);
 
   const onSubmit=async(data)=>{
     try{
-      const response = await axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Login",data);
+      setIsLoading(true);
+      const response = await axiosClient.post("/Users/Login",data);
       console.log("Full login response:", response.data);
       const token = response.data.token;
       if (!token) {
@@ -25,6 +28,8 @@ export default function Login() {
       navigate('/dashboard');
     }catch(error){
       toast.error(error?.response?.data.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -68,7 +73,9 @@ export default function Login() {
       Forgot Password?
      </Link>
     </div>
-    <button type='submit' className='btn auth-btn w-100 my-4 text-white fw-bold '>Login</button>
+    <button disabled={isLoading} type='submit' className='btn auth-btn w-100 my-4 text-white fw-bold '>
+      {isLoading ? <ButtonLoader /> : 'Login'}
+    </button>
    </form>
 
    </div>
