@@ -112,14 +112,14 @@ export default function RecipesList() {
       <div className="table-responsive px-4 pb-4">
         <table className="table table-borderless align-middle" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
           <thead>
-            <tr >
+            <tr className='text-center'>
               <th scope="col"  >Name</th>
               <th scope="col" >Image</th>
               <th scope="col" >Price</th>
               <th scope="col" >Description</th>
               <th scope="col" >Discount</th>
               <th scope="col" >Category</th>
-              <th scope="col">Actions</th>
+              <th scope="col" >Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -134,8 +134,8 @@ export default function RecipesList() {
             ) : recipesList.length > 0 ? (
               recipesList.map((recipe, index) => (
                 <tr key={recipe.id} style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fb' }}>
-                  <td className="ps-4 ">{recipe.name ?? ' '}</td>
-                  <td className="">
+                  <td className=" text-center">{recipe.name ?? ' '}</td>
+                  <td className="text-center">
                     {recipe.imagePath
                       ? <img
                           src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`}
@@ -147,9 +147,9 @@ export default function RecipesList() {
                     }
                   </td>
 
-                  <td className="">{recipe.price ?? ' '}</td>
+                  <td className="text-center">{recipe.price ?? ' '}</td>
 
-                  <td className="" style={{ maxWidth: '180px' }}>
+                  <td className="text-center" style={{ maxWidth: '180px' }}>
                     <span
                       className="d-inline-block text-truncate"
                       style={{ maxWidth: '180px' }}
@@ -159,11 +159,11 @@ export default function RecipesList() {
                     </span>
                   </td>
 
-                  <td className="">{recipe.tag?.name ?? recipe.tagId ?? ' '}</td>
+                  <td className="text-center">{recipe.tag?.name ?? recipe.tagId ?? ' '}</td>
 
-                  <td className="">{recipe.category?.name ?? ' '}</td>
+                  <td className="text-center">{recipe.category?.[0]?.name || recipe.category?.name || 'N/A'}</td>
 
-                  <td className=" pe-4 text-end">
+                  <td className="text-center">
                     <div className="dropdown position-relative">
                       <i
                         className="fa-solid fa-ellipsis fs-5 text-dark"
