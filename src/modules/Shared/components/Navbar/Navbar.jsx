@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../../../../context/AuthContext/AuthContext'
 import avatar from '../../../../assets/avatar.svg'
+import Search from '../../Search/Search'
 export default function Navbar() {
   const { loginData,setLoginData } = useContext(AuthContext);
 
@@ -17,12 +18,7 @@ export default function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-            <div className="d-flex align-items-center bg-white rounded-3 px-3 search-nav">
-              <i className="fa-solid fa-magnifying-glass text-muted"></i>
-              <input type="text" className="form-control border-0 shadow-none bg-transparent" placeholder="Search Here" />
-            </div>
+          <Search/>
 
 
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center gap-4 mt-3 mt-lg-0">

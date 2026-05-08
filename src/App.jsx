@@ -12,8 +12,6 @@ import ProtectedRoute from './modules/Shared/components/ProtectedRoute/Protected
 import Dashboard from './modules/Dashboard/components/Dashboard/Dashboard'
 import CategoriesList from './modules/Categories/components/CategoriesList/CategoriesList'
 import CategoryData from './modules/Categories/components/CategoryData/CategoryData'
-import AdminProtectedRoute from './modules/Shared/components/AdminProtectedRoute/AdminProtectedRoute'
-import UserProtectedRoute from './modules/Shared/components/UserProtectedRoute/UserProtectedRoute'
 import RecipeData from './modules/Recipes/components/RecipeData/RecipeData'
 import RecipesList from './modules/Recipes/components/RecipesList/RecipesList'
 import UsersList from './modules/Users/components/UsersList/UsersList'
@@ -39,17 +37,19 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '', element: <MasterLayout />,
+    path: '', element: <ProtectedRoute><MasterLayout /></ProtectedRoute>,
     errorElement: <NotFound />,
     children: [
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'categories-list', element: <CategoriesList /> },
+      { path: 'category/new-category', element: <ProtectedRoute allowedRole="SuperAdmin"><CategoryData /></ProtectedRoute> },
+      { path: 'category/:categoryId', element: <CategoryData /> },
       { path: 'recipes-list', element: <RecipesList /> },
-      { path: 'recipe/:recipeId', element:  <RecipeData /> },
-      { path: 'recipe/new-recipe', element: <RecipeData /> },
-      { path: 'users-list', element: <UsersList /> },
-      { path: 'change-password', element: <ChangePass/> },
-      { path: 'user-favorites', element: <UserProtectedRoute><FavList /></UserProtectedRoute> },
+      { path: 'recipe/:recipeId', element: <RecipeData /> },
+      { path: 'recipe/new-recipe', element: <ProtectedRoute allowedRole="SuperAdmin"><RecipeData /></ProtectedRoute> },
+      { path: 'users-list', element: <ProtectedRoute allowedRole="SuperAdmin"><UsersList /></ProtectedRoute> },
+      { path: 'change-password', element: <ChangePass /> },
+      { path: 'fav-list', element: <ProtectedRoute allowedRole="SystemUser"><FavList /></ProtectedRoute> },
 
     ]
   }

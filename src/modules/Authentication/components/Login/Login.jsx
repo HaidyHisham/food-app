@@ -1,13 +1,14 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-
+import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 export default function Login() {
   let navigate = useNavigate();
   let {register,formState: {errors}, handleSubmit} = useForm();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { saveLoginData } = useContext(AuthContext);
 
   const onSubmit=async(data)=>{
     try{
@@ -19,6 +20,7 @@ export default function Login() {
         return;
       }
       localStorage.setItem("token", token);
+      saveLoginData();
       toast.success('Welcome back!');
       navigate('/dashboard');
     }catch(error){
