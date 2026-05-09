@@ -356,7 +356,7 @@ export default function RecipesList() {
                   </div>
                 </div>
 
-                {/* Actions */}
+          
                 <div className="d-flex gap-3 mt-4 pt-2">
                    {loginData?.userGroup === 'SystemUser' && !favList.some(fav => fav.recipe.id === selectedRecipe.id) ? (
                     <button 
