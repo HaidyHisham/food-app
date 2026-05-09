@@ -190,6 +190,10 @@ export default function RecipesList() {
                           src={`https://upskilling-egypt.com:3006/${recipe.imagePath}`}
                           alt={recipe.name}
                           style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '8px' }}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://via.placeholder.com/48?text=R';
+                          }}
                         />
                       : <div style={{ width: '48px', height: '48px', backgroundColor: '#e9ecef', borderRadius: '8px' }} className="d-flex justify-content-center align-items-center">
                         <span className="text-muted" style={{fontSize: '14px'}}>No Img</span></div>
@@ -286,12 +290,17 @@ export default function RecipesList() {
                   <img
                     src={`https://upskilling-egypt.com:3006/${selectedRecipe.imagePath}`}
                     alt={selectedRecipe.name}
-                    className="img-fluid rounded-3 shadow-sm w-100"
-                    style={{ objectFit: 'cover', minHeight: '250px' }}
+                    className="img-fluid rounded-4 shadow-sm w-100"
+                    style={{ objectFit: 'cover', height: '300px' }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://via.placeholder.com/400x300?text=Recipe+Image';
+                    }}
                   />
                 ) : (
-                  <div className="bg-light rounded-3 d-flex align-items-center justify-content-center" style={{ height: '250px' }}>
-                    <span className="text-muted">No Image Available</span>
+                  <div className="bg-light border rounded-4 d-flex flex-column align-items-center justify-content-center shadow-sm" style={{ height: '300px' }}>
+                    <i className="fa-solid fa-image text-muted fs-1 mb-2"></i>
+                    <span className="text-muted fw-medium">No Image Available</span>
                   </div>
                 )}
               </div>

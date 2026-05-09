@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Header({ title, titleSpan, description, imgUrl }) {
   return (
-    <div className='m-3 text-white header-bg d-flex align-items-center'>
-      <div className="container-fluid px-5">
+    <div className='mx-2 mx-md-3 my-3 text-white header-bg d-flex align-items-center'>
+      <div className="container-fluid px-3 px-md-5">
         <div className="row align-items-center w-100">
           <div className="col-12 col-md-8">
             <div>
