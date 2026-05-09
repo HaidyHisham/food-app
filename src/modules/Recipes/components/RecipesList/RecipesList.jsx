@@ -278,73 +278,114 @@ export default function RecipesList() {
         onPageChange={(page) => setCurrentPage(page)} 
       />
 
-      <Modal show={showViewModal} onHide={() => setShowViewModal(false)} centered size="lg">
-        <Modal.Header closeButton className="border-0 pb-0">
-          <Modal.Title className="fw-bold">Recipe Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="p-4">
+      <Modal show={showViewModal} onHide={() => setShowViewModal(false)} centered size="md" className="recipe-view-modal shadow-lg">
+        <Modal.Body className="p-0 overflow-hidden rounded-4 border-0">
           {selectedRecipe && (
-            <div className="row g-4">
-              <div className="col-md-5">
+            <div className="recipe-card-modern">
+            
+              <div className="position-relative overflow-hidden">
                 {selectedRecipe.imagePath ? (
                   <img
                     src={`https://upskilling-egypt.com:3006/${selectedRecipe.imagePath}`}
                     alt={selectedRecipe.name}
-                    className="img-fluid rounded-4 shadow-sm w-100"
-                    style={{ objectFit: 'cover', height: '300px' }}
+                    className="w-100 transition-scale"
+                    style={{ height: '220px', objectFit: 'cover' }}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://via.placeholder.com/400x300?text=Recipe+Image';
+                      e.target.src = 'https://via.placeholder.com/600x400?text=Food';
                     }}
                   />
                 ) : (
-                  <div className="bg-light border rounded-4 d-flex flex-column align-items-center justify-content-center shadow-sm" style={{ height: '300px' }}>
-                    <i className="fa-solid fa-image text-muted fs-1 mb-2"></i>
-                    <span className="text-muted fw-medium">No Image Available</span>
+                  <div className="bg-success-subtle d-flex align-items-center justify-content-center" style={{ height: '220px' }}>
+                    <i className="fa-solid fa-utensils text-success opacity-25" style={{ fontSize: '60px' }}></i>
                   </div>
                 )}
-              </div>
-              <div className="col-md-7">
-                <div className="mb-4">
-                  <h3 className="text-success fw-bold mb-1">{selectedRecipe.name}</h3>
-                  <p className="text-muted small">Category: <span className="text-dark fw-medium">{selectedRecipe.category?.[0]?.name || selectedRecipe.category?.name || 'N/A'}</span></p>
-                </div>
                 
-                <div className="row g-3 mb-4">
+               
+                <div className="position-absolute top-0 start-0 m-3">
+                  <span className="badge glass-badge px-3 py-2 rounded-pill fw-bold shadow-sm">
+                    {selectedRecipe.tag?.name || 'General'}
+                  </span>
+                </div>
+
+                
+                <button 
+                  onClick={() => setShowViewModal(false)}
+                  className="btn-close-modern position-absolute top-0 end-0 m-3 shadow-sm"
+                >
+                  <i className="fa-solid fa-xmark"></i>
+                </button>
+
+             
+                <div className="title-banner-modern text-center ">
+                  <h4 className="fw-bold mb-0 text-white text-shadow">{selectedRecipe.name}</h4>
+                  <p className="small mb-0 text-white-50">{selectedRecipe.description ?? ""}</p>
+                </div>
+              </div>
+
+             
+              <div className="p-4 pt-5 bg-white">
+                <div className="row g-3">
                   <div className="col-6">
-                    <label className="text-muted d-block small mb-1">Price</label>
-                    <span className="fw-semibold">{selectedRecipe.price} EGP</span>
+                    <div className="detail-box text-center shadow-hover">
+                      <i className="fa-solid fa-wallet text-success mb-2"></i>
+                      <label className="text-muted d-block small fw-bold text-uppercase">Price</label>
+                      <span className="fw-bold text-dark fs-5">{selectedRecipe.price} <small className="fw-medium opacity-75">EGP</small></span>
+                    </div>
                   </div>
                   <div className="col-6">
-                    <label className="text-muted d-block small mb-1">Tag</label>
-                    <span className="badge bg-success-subtle text-success px-3 py-2">{selectedRecipe.tag?.name || 'N/A'}</span>
+                    <div className="detail-box text-center shadow-hover">
+                      <i className="fa-solid fa-layer-group text-success mb-2"></i>
+                      <label className="text-muted d-block small fw-bold text-uppercase">Category</label>
+                      <span className="fw-bold text-dark">{selectedRecipe.category?.[0]?.name || selectedRecipe.category?.name || 'N/A'}</span>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="detail-box text-center shadow-hover">
+                      <i className="fa-solid fa-fingerprint text-success mb-2"></i>
+                      <label className="text-muted d-block small fw-bold text-uppercase">Serial ID</label>
+                      <span className="fw-bold text-dark opacity-75">#{selectedRecipe.id}</span>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="detail-box text-center shadow-hover">
+                      <i className="fa-solid fa-calendar-check text-success mb-2"></i>
+                      <label className="text-muted d-block small fw-bold text-uppercase">Date</label>
+                      <span className="fw-bold text-dark">{new Date(selectedRecipe.creationDate).toLocaleDateString()}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="mb-0">
-                  <label className="text-muted d-block small mb-2">Description</label>
-                  <p className="text-dark lh-base" style={{ textAlign: 'justify' }}>
-                    {selectedRecipe.description || 'No description provided.'}
-                  </p>
+                {/* Actions */}
+                <div className="d-flex gap-3 mt-4 pt-2">
+                   {loginData?.userGroup === 'SystemUser' && !favList.some(fav => fav.recipe.id === selectedRecipe.id) ? (
+                    <button 
+                      className="btn btn-fav-modern flex-grow-1 py-2" 
+                      onClick={() => { addFav(selectedRecipe.id); setShowViewModal(false); }}
+                    >
+                      <i className="fa-solid fa-heart me-2"></i> Add to Favorite
+                    </button>
+                  ) : (
+                    <button 
+                      className="btn btn-close-main flex-grow-1 py-2" 
+                      onClick={() => setShowViewModal(false)}
+                    >
+                      Done
+                    </button>
+                  )}
+                  {loginData?.userGroup === 'SuperAdmin' && (
+                    <button 
+                      className="btn btn-delete-modern py-2" 
+                      onClick={() => { setShowViewModal(false); setSelectedRecipeId(selectedRecipe.id); setShowDeleteModal(true); }}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           )}
         </Modal.Body>
-        <Modal.Footer className="border-0 pt-0">
-          {loginData?.userGroup === 'SystemUser' && selectedRecipe && !favList.some(fav => fav.recipe.id === selectedRecipe.id) && (
-            <button 
-              className="btn btn-outline-success px-4 py-2 fw-bold d-flex align-items-center gap-2" 
-              onClick={() => { addFav(selectedRecipe.id); setShowViewModal(false); }}
-            >
-              <i className="fa-regular fa-heart"></i>
-              Add to Favorites
-            </button>
-          )}
-          <button className="btn btn-success px-4 py-2 fw-bold" onClick={() => setShowViewModal(false)}>
-            Close
-          </button>
-        </Modal.Footer>
       </Modal>
     </>
   )
